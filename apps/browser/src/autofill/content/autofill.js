@@ -626,16 +626,18 @@
       var markTheFilling = true,
           animateTheFilling = true;
 
-      // Check if URL is not secure when the original saved one was
+      // Bugfix https://community.bitwarden.com/t/add-the-ability-to-disable-unsecured-http-page-warning/47033
+      // Don't show this popup for developers
       function urlNotSecure(savedURLs) {
-          var passwordInputs = null;
-          if (!savedURLs) {
-              return false;
-          }
+        return false;
+        //   var passwordInputs = null;
+        //   if (!savedURLs) {
+        //       return false;
+        //   }
 
-          return savedURLs.some(url => url?.indexOf('https://') === 0) && 'http:' === document.location.protocol && (passwordInputs = document.querySelectorAll('input[type=password]'),
-              0 < passwordInputs.length && (confirmResult = confirm('Warning: This is an unsecured HTTP page, and any information you submit can potentially be seen and changed by others. This Login was originally saved on a secure (HTTPS) page.\n\nDo you still wish to fill this login?'),
-                  0 == confirmResult)) ? true : false;
+        //   return savedURLs.some(url => url?.indexOf('https://') === 0) && 'http:' === document.location.protocol && (passwordInputs = document.querySelectorAll('input[type=password]'),
+        //       0 < passwordInputs.length && (confirmResult = confirm('Warning: This is an unsecured HTTP page, and any information you submit can potentially be seen and changed by others. This Login was originally saved on a secure (HTTPS) page.\n\nDo you still wish to fill this login?'),
+        //           0 == confirmResult)) ? true : false;
       }
 
       // Detect if within an iframe, and the iframe is sandboxed
